@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="container">
+      <header>
+        <h1>Bem Vindo(a)!</h1>
+        <h2>Faça sua lista de tarefas!</h2>
+      </header>
+
+      <main>
+        <div class="tarefas">
+          <input
+            type="text"
+            id="novaTarefa"
+            placeholder="Anote sua tarefa aqui!"
+          />
+          <button type="button" id="addTarefa">Adicionar</button>
+        </div>
+        <h2>Tabela de tarefas</h2>
+
+        <ul id="listaTarefas"></ul>
+
+        <section id="informacoes">
+          <h4>Informações</h4>
+
+          <h4>Falta: <span id="addFalta">0</span></h4>
+
+          <h4>Fazendo: <span id="addFz">0</span></h4>
+
+          <h4>Feitas: <span id="addFeito">0</span></h4>
+        </section>
+      </main>
+      <footer>
+        <h4>Create by future software developer <strong>Darkz</strong></h4>
+      </footer>
+    </div>
+
+    <script src="List.js"></script>
+  </body>
+</html>
