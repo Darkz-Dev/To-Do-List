@@ -1,0 +1,47 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+#container{
+    
+}
+
+header{
+    display: flex;
+    flex-direction: column;
+     align-items: center;
+
+}
+
+#tabelas{
+    display: grid;
+    grid-template-areas:
+        'lisTab lisTab lisTab'
+        'informacoes informacoes informacoes'   
+    ;
+}
+
+.tarefas{
+    display: flex;
+ justify-content: center;
+}
+
+.lisTab{
+    grid-area: lisTab;
+    display: flex;
+ justify-content: space-between;
+}
+
+#informacoes{
+    grid-area: informacoes;
+    
+}
+
+footer{
+    grid-area: footer;
+    display: flex;
+ justify-content: center;
+}
