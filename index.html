@@ -18,10 +18,10 @@
         <div class="tarefas">
           <input
             type="text"
-            id="novaTarefa"
+            class="novaTarefa"
             placeholder="Anote sua tarefa aqui!"
           />
-          <button type="button" id="addTarefa">Adicionar</button>
+          <button type="button" class="addTarefa">Adicionar</button>
         </div>
         <div id="tabelas">
           <h2 class="tab">Tabela de tarefas</h2>
@@ -31,14 +31,21 @@
           </div>
         </div>
 
-        <section id="informacoes">
-          <h4>Informações</h4>
+        <section id="quadro">
+          <div class="coluna" id="falta">
+            <h3>Falta</h3>
+            <ul></ul>
+          </div>
 
-          <h4>Falta: <span id="addFalta">0</span></h4>
+          <div class="coluna" id="fazendo">
+            <h3>Fazendo</h3>
+            <ul></ul>
+          </div>
 
-          <h4>Fazendo: <span id="addFz">0</span></h4>
-
-          <h4>Feitas: <span id="addFeito">0</span></h4>
+          <div class="coluna" id="feitas">
+            <h3>Feitas</h3>
+            <ul></ul>
+          </div>
         </section>
       </main>
       <footer>
