@@ -29,6 +29,7 @@ header{
 .tab{
     display: flex;
     justify-content: center;
+    margin-bottom: 20px;
 }
 
 .novaTarefa{
@@ -61,10 +62,8 @@ header{
 }
 
 .lisTab{
-    grid-area: lisTab;
-    display: flex;
- justify-content: space-between;
-     margin: 15px;
+
+     
 }
 
 #quadro{
@@ -88,6 +87,8 @@ footer{
 .coluna h3{
     margin-bottom: 15px;
 }
+
+
 
 
 
