@@ -11,7 +11,7 @@ const contadorFazendo = document.getElementById('contadorFazendo')
 const contadorFeitas = document.getElementById('contadorFeitas')
 
 function addItem(texto){
-    // 1. Criando o item e o botão
+    
     let item = document.createElement("li")
     item.textContent = texto
 
@@ -24,7 +24,7 @@ function addItem(texto){
     botao.addEventListener("click", () => {
         
         if (item.parentElement === listaFalta) {
-            
+            //Move para 'listaFazendo
             listaFazendo.appendChild(item)
             botao.textContent = "✔" 
             
@@ -52,10 +52,10 @@ function addItem(texto){
 }
 
 function atualizarContadores() {
-    // Usando exatamente os seus IDs e constantes:
+   
     contadorFalta.textContent = listaFalta.children.length;
     contadorFazendo.textContent = listaFazendo.children.length;
-    contadorFeitas.textContent = listaFeita.children.length; // (Atenção aqui: sua constante é listaFeita, e o contador é contadorFeitas)
+    contadorFeitas.textContent = listaFeita.children.length; 
 }
 
     addTarefa.addEventListener('click', () => {
