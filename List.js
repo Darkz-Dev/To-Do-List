@@ -10,59 +10,122 @@ const contadorFalta = document.getElementById('contadorFalta')
 const contadorFazendo = document.getElementById('contadorFazendo')
 const contadorFeitas = document.getElementById('contadorFeitas')
 
-function addItem(texto){
-    
+// Adicionei isso
+let tarefas = [];
+
+function addItem(tarefa){
+
     let item = document.createElement("li")
-    item.textContent = texto
+    item.textContent = tarefa.texto
 
     let botao = document.createElement("button")
-    botao.textContent = "▶" 
-    
-    botao.classList.add("btn-falta") 
 
-    
+    if(tarefa.status === "falta"){
+
+        botao.textContent = "▶"
+        botao.classList.add("btn-falta")
+        listaFalta.appendChild(item)
+
+    }else if(tarefa.status === "fazendo"){
+
+        botao.textContent = "✔"
+        botao.classList.add("btn-fazendo")
+        listaFazendo.appendChild(item)
+
+    }else{
+
+        botao.textContent = "X"
+        botao.classList.add("btn-feitas")
+        listaFeita.appendChild(item)
+
+    }
+
     botao.addEventListener("click", () => {
-        
-        if (item.parentElement === listaFalta) {
-            //Move para 'listaFazendo
-            listaFazendo.appendChild(item)
-            botao.textContent = "✔" 
-            
-            botao.classList.replace("btn-falta", "btn-fazendo")
 
-        } else if (item.parentElement === listaFazendo) {
-            // Move para 'listaFeita'
-            listaFeita.appendChild(item)
-            botao.textContent = "X" 
-            
-            botao.classList.replace("btn-fazendo", "btn-feitas")
+        if(tarefa.status === "falta"){
 
-        } else if (item.parentElement === listaFeita) {
-            
-            item.remove()
+            tarefa.status = "fazendo"
+
+        }else if(tarefa.status === "fazendo"){
+
+            tarefa.status = "feitas"
+
+        }else{
+
+            // Adicionei isso
+            tarefas = tarefas.filter(t => t !== tarefa)
+
         }
 
-        atualizarContadores()
+        salvarTarefas()
+        renderizar()
+
     })
 
-    
     item.appendChild(botao)
-    listaFalta.appendChild(item)
-    atualizarContadores() 
+
 }
 
-function atualizarContadores() {
-   
-    contadorFalta.textContent = listaFalta.children.length;
-    contadorFazendo.textContent = listaFazendo.children.length;
-    contadorFeitas.textContent = listaFeita.children.length; 
+function salvarTarefas(){
+
+    localStorage.setItem("tarefas", 
+        JSON.stringify(tarefas))
+
 }
 
-    addTarefa.addEventListener('click', () => {
-    let tarefa = novaTarefa.value.trim(); // Pega o que foi digitado
+function renderizar(){
 
-    if (tarefa !== "") {
-    addItem(tarefa); // Chama a sua função passando o texto
-    novaTarefa.value = ""; // Limpa o campo
+    listaFalta.innerHTML = ""
+    listaFazendo.innerHTML = ""
+    listaFeita.innerHTML = ""
+
+    tarefas.forEach(addItem)
+
+    atualizarContadores()
+
+}
+
+function atualizarContadores(){
+
+    contadorFalta.textContent = listaFalta.children.length
+    contadorFazendo.textContent = listaFazendo.children.length
+    contadorFeitas.textContent = listaFeita.children.length
+
+}
+
+addTarefa.addEventListener('click', () => {
+
+    let texto = novaTarefa.value.trim()
+
+    if(texto !== ""){
+
+        // Adicionei isso
+        tarefas.push({
+            texto: texto,
+            status: "falta"
+        })
+
+        salvarTarefas()
+        renderizar()
+
+        novaTarefa.value = ""
+
     }
-    })
+
+})
+
+function carregarTarefas(){
+
+    const dados = localStorage.getItem("tarefas")
+
+    if(dados){
+
+        tarefas = JSON.parse(dados)
+
+    }
+
+    renderizar()
+
+}
+
+carregarTarefas()
