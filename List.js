@@ -40,6 +40,22 @@ function addItem(tarefa){
 
     }
 
+    item.addEventListener("dblclick", () => {
+
+    let novoTexto = prompt("Editar tarefa:", tarefa.texto)
+
+    if(novoTexto !== null && novoTexto.trim() !== ""){
+
+        tarefa.texto = novoTexto.trim()
+
+        salvarTarefas()
+
+        renderizar()
+
+    }
+
+})
+
     botao.addEventListener("click", () => {
 
         if(tarefa.status === "falta"){
@@ -65,6 +81,17 @@ function addItem(tarefa){
     item.appendChild(botao)
 
 }
+
+novaTarefa.addEventListener("keydown", (event) =>{
+
+    if(event.key === "Enter"){
+        
+        addTarefa.click()
+        
+    }
+})
+
+
 
 function salvarTarefas(){
 
@@ -129,3 +156,4 @@ function carregarTarefas(){
 }
 
 carregarTarefas()
+
