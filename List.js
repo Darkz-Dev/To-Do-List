@@ -1,5 +1,4 @@
 //Tem muitos comentarios para eu não esquecer oq cada linha faz
-
 const falta = document.getElementById('falta')
 const addTarefa = document.querySelector('.addTarefa')
 const novaTarefa = document.querySelector('.novaTarefa')
@@ -10,13 +9,34 @@ const contadorFalta = document.getElementById('contadorFalta')
 const contadorFazendo = document.getElementById('contadorFazendo')
 const contadorFeitas = document.getElementById('contadorFeitas')
 
-// Adicionei isso
+
 let tarefas = [];
 
 function addItem(tarefa){
 
+    let criado = document.createElement("small")
+    criado.classList.add("data-criacao")
+
     let item = document.createElement("li")
+
+    item.draggable = true
+
+    item.addEventListener("dragstart", (event)=>{
+
+        let indice = tarefas.indexOf(tarefa)
+
+        event.dataTransfer.setData("index", indice)
+
+    })
+
+    let data = new Date(tarefa.criadoEm)
+
     item.textContent = tarefa.texto
+
+    criado.textContent =
+    `📅 ${data.toLocaleDateString()}`
+
+    item.appendChild(criado)
 
     let botao = document.createElement("button")
 
@@ -33,30 +53,29 @@ function addItem(tarefa){
         listaFazendo.appendChild(item)
 
     }else{
-
         botao.textContent = "X"
         botao.classList.add("btn-feitas")
         listaFeita.appendChild(item)
 
     }
 
-    item.addEventListener("dblclick", () => {
+    item.addEventListener("dblclick", ()=>{
 
-    let novoTexto = prompt("Editar tarefa:", tarefa.texto)
+        let novoTexto = prompt("Editar tarefa:", tarefa.texto)
 
-    if(novoTexto !== null && novoTexto.trim() !== ""){
+        if(novoTexto !== null && novoTexto.trim() !== ""){
 
-        tarefa.texto = novoTexto.trim()
+            tarefa.texto = novoTexto.trim()
 
-        salvarTarefas()
+            salvarTarefas()
 
-        renderizar()
+            renderizar()
 
-    }
+        }
 
-})
+    })
 
-    botao.addEventListener("click", () => {
+    botao.addEventListener("click", ()=>{
 
         if(tarefa.status === "falta"){
 
@@ -68,12 +87,12 @@ function addItem(tarefa){
 
         }else{
 
-            // Adicionei isso
             tarefas = tarefas.filter(t => t !== tarefa)
 
         }
 
         salvarTarefas()
+
         renderizar()
 
     })
@@ -82,32 +101,74 @@ function addItem(tarefa){
 
 }
 
-novaTarefa.addEventListener("keydown", (event) =>{
+const listas = [
 
-    if(event.key === "Enter"){
-        
-        addTarefa.click()
-        
-    }
+    listaFalta,
+    listaFazendo,
+    listaFeita
+
+]
+
+
+listas.forEach((lista)=>{
+
+    lista.addEventListener("dragover",(event)=>{
+
+        event.preventDefault()
+
+    })
+
+    lista.addEventListener("drop",(event)=>{
+
+        let indice = event.dataTransfer.getData("index")
+
+        let tarefa = tarefas[indice]
+
+        if(lista === listaFalta){
+
+
+            tarefa.status = "falta"
+
+        }else if(lista === listaFazendo){
+
+
+            tarefa.status = "fazendo"
+
+        }else{
+
+            tarefa.status = "feitas"
+
+        }
+
+        salvarTarefas()
+
+        renderizar()
+
+    })
+
 })
 
+novaTarefa.addEventListener("keydown",(event)=>{
 
+    if(event.key === "Enter"){
+
+        addTarefa.click()
+    }
+
+})
 
 function salvarTarefas(){
 
-    localStorage.setItem("tarefas", 
-        JSON.stringify(tarefas))
+    localStorage.setItem("tarefas", JSON.stringify(tarefas))
 
 }
 
 function renderizar(){
-
     listaFalta.innerHTML = ""
     listaFazendo.innerHTML = ""
     listaFeita.innerHTML = ""
 
     tarefas.forEach(addItem)
-
     atualizarContadores()
 
 }
@@ -120,19 +181,28 @@ function atualizarContadores(){
 
 }
 
-addTarefa.addEventListener('click', () => {
+addTarefa.addEventListener("click",()=>{
 
     let texto = novaTarefa.value.trim()
 
+    let data = new Date()
+
     if(texto !== ""){
 
-        // Adicionei isso
+
         tarefas.push({
-            texto: texto,
-            status: "falta"
+
+
+            texto:texto,
+
+            status:"falta",
+
+            criadoEm:data
+
         })
 
         salvarTarefas()
+
         renderizar()
 
         novaTarefa.value = ""
@@ -148,12 +218,10 @@ function carregarTarefas(){
     if(dados){
 
         tarefas = JSON.parse(dados)
-
+ 
     }
 
     renderizar()
-
 }
 
 carregarTarefas()
-
