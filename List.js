@@ -1,4 +1,3 @@
-//Tem muitos comentarios para eu não esquecer oq cada linha faz
 const falta = document.getElementById('falta')
 const addTarefa = document.querySelector('.addTarefa')
 const novaTarefa = document.querySelector('.novaTarefa')
