@@ -12,216 +12,182 @@ const contadorFeitas = document.getElementById('contadorFeitas')
 
 let tarefas = [];
 
-function addItem(tarefa){
+function addItem(tarefa) {
+    let item = document.createElement("li");
+    item.draggable = true;
+    item.classList.add("item-tarefa");
 
-    let criado = document.createElement("small")
-    criado.classList.add("data-criacao")
+    let textoTarefa = document.createElement("span");
+    textoTarefa.textContent = tarefa.texto;
 
-    let item = document.createElement("li")
+    let criado = document.createElement("small");
+    criado.classList.add("data-criacao");
 
-    item.draggable = true
+    let data = new Date(tarefa.criadoEm);
+    criado.textContent = `📅 ${isNaN(data) ? "" : data.toLocaleDateString()}`;
 
-    item.addEventListener("dragstart", (event)=>{
+    let botao = document.createElement("button");
 
-        let indice = tarefas.indexOf(tarefa)
-
-        event.dataTransfer.setData("index", indice)
-
-    })
-
-    let data = new Date(tarefa.criadoEm)
-
-    item.textContent = tarefa.texto
-
-    criado.textContent =
-    `📅 ${data.toLocaleDateString()}`
-
-    item.appendChild(criado)
-
-    let botao = document.createElement("button")
-
-    if(tarefa.status === "falta"){
-
-        botao.textContent = "▶"
-        botao.classList.add("btn-falta")
-        listaFalta.appendChild(item)
-
-    }else if(tarefa.status === "fazendo"){
-
-        botao.textContent = "✔"
-        botao.classList.add("btn-fazendo")
-        listaFazendo.appendChild(item)
-
-    }else{
-        botao.textContent = "X"
-        botao.classList.add("btn-feitas")
-        listaFeita.appendChild(item)
-
+    if (tarefa.status === "falta") {
+        botao.textContent = "▶";
+        botao.classList.add("btn-falta");
+        listaFalta.appendChild(item);
+    } else if (tarefa.status === "fazendo") {
+        botao.textContent = "✔";
+        botao.classList.add("btn-fazendo");
+        listaFazendo.appendChild(item);
+    } else {
+        botao.textContent = "X";
+        botao.classList.add("btn-feitas");
+        listaFeita.appendChild(item);
     }
 
-    item.addEventListener("dblclick", ()=>{
+    item.appendChild(textoTarefa);
+    item.appendChild(criado);
+    item.appendChild(botao);
 
-        let novoTexto = prompt("Editar tarefa:", tarefa.texto)
+    item.addEventListener("dragstart", (event) => {
+        let indice = tarefas.indexOf(tarefa);
 
-        if(novoTexto !== null && novoTexto.trim() !== ""){
+        event.dataTransfer.effectAllowed = "move";
+        event.dataTransfer.setData("text/plain", String(indice));
 
-            tarefa.texto = novoTexto.trim()
+        item.classList.add("arrastando");
+    });
 
-            salvarTarefas()
+    item.addEventListener("dragend", () => {
+        item.classList.remove("arrastando");
+    });
 
-            renderizar()
+    item.addEventListener("dblclick", (event) => {
+        if (event.target === botao) return;
 
+        let novoTexto = prompt("Editar tarefa:", tarefa.texto);
+
+        if (novoTexto !== null && novoTexto.trim() !== "") {
+            tarefa.texto = novoTexto.trim();
+
+            salvarTarefas();
+            renderizar();
+        }
+    });
+
+    botao.addEventListener("click", (event) => {
+        event.stopPropagation();
+
+        if (tarefa.status === "falta") {
+            tarefa.status = "fazendo";
+        } else if (tarefa.status === "fazendo") {
+            tarefa.status = "feitas";
+        } else {
+            tarefas = tarefas.filter(t => t !== tarefa);
         }
 
-    })
-
-    botao.addEventListener("click", ()=>{
-
-        if(tarefa.status === "falta"){
-
-            tarefa.status = "fazendo"
-
-        }else if(tarefa.status === "fazendo"){
-
-            tarefa.status = "feitas"
-
-        }else{
-
-            tarefas = tarefas.filter(t => t !== tarefa)
-
-        }
-
-        salvarTarefas()
-
-        renderizar()
-
-    })
-
-    item.appendChild(botao)
-
+        salvarTarefas();
+        renderizar();
+    });
 }
 
 const listas = [
-
-    listaFalta,
-    listaFazendo,
-    listaFeita
-
-]
-
-
-listas.forEach((lista)=>{
-
-    lista.addEventListener("dragover",(event)=>{
-
-        event.preventDefault()
-
-    })
-
-    lista.addEventListener("drop",(event)=>{
-
-        let indice = event.dataTransfer.getData("index")
-
-        let tarefa = tarefas[indice]
-
-        if(lista === listaFalta){
-
-
-            tarefa.status = "falta"
-
-        }else if(lista === listaFazendo){
-
-
-            tarefa.status = "fazendo"
-
-        }else{
-
-            tarefa.status = "feitas"
-
-        }
-
-        salvarTarefas()
-
-        renderizar()
-
-    })
-
-})
-
-novaTarefa.addEventListener("keydown",(event)=>{
-
-    if(event.key === "Enter"){
-
-        addTarefa.click()
+    {
+        coluna: falta,
+        lista: listaFalta,
+        status: "falta"
+    },
+    {
+        coluna: fazendo,
+        lista: listaFazendo,
+        status: "fazendo"
+    },
+    {
+        coluna: feitas,
+        lista: listaFeita,
+        status: "feitas"
     }
+];
 
-})
+listas.forEach((area) => {
+    area.coluna.addEventListener("dragover", (event) => {
+        event.preventDefault();
+        event.dataTransfer.dropEffect = "move";
+        area.coluna.classList.add("coluna-hover");
+    });
 
-function salvarTarefas(){
+    area.coluna.addEventListener("dragleave", () => {
+        area.coluna.classList.remove("coluna-hover");
+    });
 
-    localStorage.setItem("tarefas", JSON.stringify(tarefas))
+    area.coluna.addEventListener("drop", (event) => {
+        event.preventDefault();
 
+        area.coluna.classList.remove("coluna-hover");
+
+        let indice = parseInt(event.dataTransfer.getData("text/plain"), 10);
+
+        if (isNaN(indice)) return;
+
+        let tarefa = tarefas[indice];
+
+        if (!tarefa) return;
+
+        tarefa.status = area.status;
+
+        salvarTarefas();
+        renderizar();
+    });
+});
+
+novaTarefa.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+        addTarefa.click();
+    }
+});
+
+function salvarTarefas() {
+    localStorage.setItem("tarefas", JSON.stringify(tarefas));
 }
 
-function renderizar(){
-    listaFalta.innerHTML = ""
-    listaFazendo.innerHTML = ""
-    listaFeita.innerHTML = ""
+function renderizar() {
+    listaFalta.innerHTML = "";
+    listaFazendo.innerHTML = "";
+    listaFeita.innerHTML = "";
 
-    tarefas.forEach(addItem)
-    atualizarContadores()
+    tarefas.forEach(addItem);
 
+    atualizarContadores();
 }
 
-function atualizarContadores(){
-
-    contadorFalta.textContent = listaFalta.children.length
-    contadorFazendo.textContent = listaFazendo.children.length
-    contadorFeitas.textContent = listaFeita.children.length
-
+function atualizarContadores() {
+    contadorFalta.textContent = listaFalta.children.length;
+    contadorFazendo.textContent = listaFazendo.children.length;
+    contadorFeitas.textContent = listaFeita.children.length;
 }
 
-addTarefa.addEventListener("click",()=>{
+addTarefa.addEventListener("click", () => {
+    let texto = novaTarefa.value.trim();
 
-    let texto = novaTarefa.value.trim()
-
-    let data = new Date()
-
-    if(texto !== ""){
-
-
+    if (texto !== "") {
         tarefas.push({
+            texto: texto,
+            status: "falta",
+            criadoEm: new Date().toISOString()
+        });
 
+        salvarTarefas();
+        renderizar();
 
-            texto:texto,
+        novaTarefa.value = "";
+    }
+});
 
-            status:"falta",
+function carregarTarefas() {
+    const dados = localStorage.getItem("tarefas");
 
-            criadoEm:data
-
-        })
-
-        salvarTarefas()
-
-        renderizar()
-
-        novaTarefa.value = ""
-
+    if (dados) {
+        tarefas = JSON.parse(dados);
     }
 
-})
-
-function carregarTarefas(){
-
-    const dados = localStorage.getItem("tarefas")
-
-    if(dados){
-
-        tarefas = JSON.parse(dados)
- 
-    }
-
-    renderizar()
+    renderizar();
 }
 
-carregarTarefas()
+carregarTarefas();

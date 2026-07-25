@@ -150,6 +150,12 @@ li{
     font-weight: 400;
 }
 
+.coluna-hover {
+    outline: 2px dashed #93C5FD;
+    background-color: #52647a;
+}
+
+
 /*===========================================
 TIPOGRAFIA
 ============================================*/
