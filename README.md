@@ -1,6 +1,6 @@
 # Kanban - Gerenciador de Tarefas
 
-Meu primeiro projeto completo utilizando HTML, CSS e JavaScript puro.
+Meu segundo projeto completo utilizando HTML, CSS e JavaScript puro.
 
 O objetivo foi colocar em prática os conceitos aprendidos durante o módulo de Front-end do meu curso Full Stack, desenvolvendo uma aplicação funcional para gerenciamento de tarefas.
 
