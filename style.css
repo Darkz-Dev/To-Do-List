@@ -268,8 +268,20 @@ footer{
 
 
 @media (max-width: 798px) { 
+
+    header{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    header h1{
+        width: 100%;
+        text-align: center;
+    }
   #quadro{
         grid-template-columns: 1fr;
     }
-}
 
+}
