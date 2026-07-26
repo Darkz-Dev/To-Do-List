@@ -256,3 +256,20 @@ header h1{
 footer{
     color:#CBD5E1;
 }
+
+
+
+
+/*==================================
+
+            Responsividade
+
+==================================*/
+
+
+@media (max-width: 798px) { 
+  #quadro{
+        grid-template-columns: 1fr;
+    }
+}
+
