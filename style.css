@@ -155,6 +155,58 @@ li{
     background-color: #52647a;
 }
 
+/*============================
+
+        Botão de Tema
+
+=============================*/
+
+.topo{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 15px;
+}
+
+.switch{
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 32px;
+}
+
+.switch input{
+    display: none;
+}
+
+.slider{
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background: #64748B;
+    border-radius: 50px;
+    transition: .3s;
+}
+
+.slider::before{
+    content: "";
+    position: absolute;
+    height: 24px;
+    width: 24px;
+    left: 4px;
+    bottom: 4px;
+    background: white;
+    border-radius: 50%;
+    transition: .3s;
+}
+
+.switch input:checked + .slider{
+    background: #2563EB;
+}
+
+.switch input:checked + .slider::before{
+    transform: translateX(28px);
+}
 
 /*===========================================
 TIPOGRAFIA
