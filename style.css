@@ -208,6 +208,7 @@ li{
     transform: translateX(28px);
 }
 
+
 /*===========================================
 TIPOGRAFIA
 ============================================*/
@@ -308,9 +309,6 @@ header h1{
 footer{
     color:#CBD5E1;
 }
-
-
-
 
 /*==================================
 
@@ -464,4 +462,3 @@ body.light-mode footer{
     padding: 12px;
     border-radius: 10px;
 }
-
