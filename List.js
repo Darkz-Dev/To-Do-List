@@ -164,10 +164,12 @@ function atualizarContadores() {
 }
 
 btnTema.addEventListener("click", () => {
-    body.classList.toggle("light-mode")
-    
 
-})
+    body.classList.toggle("light-mode");
+
+    localStorage.setItem("tema", btnTema.checked ? "claro" : "escuro");
+
+});
 
 addTarefa.addEventListener("click", () => {
     let texto = novaTarefa.value.trim();
@@ -186,6 +188,24 @@ addTarefa.addEventListener("click", () => {
     }
 });
 
+function carregarTema(){
+
+    const temaSalvo = localStorage.getItem("tema");
+
+    if(temaSalvo === "claro"){
+
+        body.classList.add("light-mode");
+        btnTema.checked = true;
+
+    }else{
+
+        body.classList.remove("light-mode");
+        btnTema.checked = false;
+
+    }
+
+}
+
 function carregarTarefas() {
     const dados = localStorage.getItem("tarefas");
 
@@ -197,3 +217,4 @@ function carregarTarefas() {
 }
 
 carregarTarefas();
+carregarTema();
