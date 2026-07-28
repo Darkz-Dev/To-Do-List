@@ -155,6 +155,58 @@ li{
     background-color: #52647a;
 }
 
+/*============================
+
+        Botão de Tema
+
+=============================*/
+
+.topo{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 15px;
+}
+
+.switch{
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 32px;
+}
+
+.switch input{
+    display: none;
+}
+
+.slider{
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background: #64748B;
+    border-radius: 50px;
+    transition: .3s;
+}
+
+.slider::before{
+    content: "";
+    position: absolute;
+    height: 24px;
+    width: 24px;
+    left: 4px;
+    bottom: 4px;
+    background: white;
+    border-radius: 50%;
+    transition: .3s;
+}
+
+.switch input:checked + .slider{
+    background: #2563EB;
+}
+
+.switch input:checked + .slider::before{
+    transform: translateX(28px);
+}
 
 /*===========================================
 TIPOGRAFIA
@@ -284,4 +336,132 @@ footer{
         grid-template-columns: 1fr;
     }
 
+/*=================================
+
+            Tema Claro
+
+=================================*/
+
+body.light-mode{
+    background: #D4DCE5;
+    color: #1E293B;
 }
+
+body.light-mode #container{
+    background: #E6EBF1;
+    border-color: #B8C4D1;
+}
+
+body.light-mode header h1{
+    color: #0F172A;
+}
+
+body.light-mode .first{
+    color: #334155;
+}
+
+body.light-mode .second{
+    color: #475569;
+}
+
+body.light-mode .tab{
+    color: #2563EB;
+}
+
+body.light-mode .coluna{
+    background: #C9D4E0;
+}
+
+body.light-mode .coluna:hover{
+    background: #BCC9D6;
+}
+
+body.light-mode .coluna h3{
+    color: #1E293B;
+}
+
+body.light-mode .novaTarefa{
+    background: #F5F7FA;
+    color: #1E293B;
+    border: 1px solid #B8C4D1;
+}
+
+body.light-mode .novaTarefa::placeholder{
+    color: #64748B;
+}
+
+body.light-mode .novaTarefa:focus{
+    outline: 2px solid #2563EB;
+}
+
+body.light-mode .addTarefa{
+    background: #2563EB;
+    color: #FFFFFF;
+}
+
+body.light-mode .addTarefa:hover{
+    background: #1D4ED8;
+}
+
+body.light-mode section ul li{
+    background: #EDF2F7;
+    box-shadow: 0 6px 15px rgba(0,0,0,.15);
+}
+
+body.light-mode .data-criacao{
+    color: #5F6F82;
+}
+
+body.light-mode .contador{
+    color: #334155;
+}
+
+body.light-mode #falta h3,
+body.light-mode #falta li{
+    color: #EF4444;
+}
+
+body.light-mode #fazendo h3,
+body.light-mode #fazendo li{
+    color: #EAB308;
+}
+
+body.light-mode #feitas h3,
+body.light-mode #feitas li{
+    color: #22C55E;
+}
+
+body.light-mode #contadorFalta{
+    color: #EF4444;
+}
+
+body.light-mode #contadorFazendo{
+    color: #EAB308;
+}
+
+body.light-mode #contadorFeitas{
+    color: #22C55E;
+}
+
+body.light-mode .btn-falta{
+    background: #EF4444;
+    color: #FFFFFF;
+}
+
+body.light-mode .btn-fazendo{
+    background: #FACC15;
+    color: #1E293B;
+}
+
+body.light-mode .btn-feitas{
+    background: #22C55E;
+    color: #FFFFFF;
+}
+
+body.light-mode footer{
+    background: #BCC9D6;
+    color: #1E293B;
+    padding: 12px;
+    border-radius: 10px;
+}
+
