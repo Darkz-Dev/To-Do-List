@@ -208,6 +208,7 @@ li{
     transform: translateX(28px);
 }
 
+
 /*===========================================
 TIPOGRAFIA
 ============================================*/
@@ -309,9 +310,6 @@ footer{
     color:#CBD5E1;
 }
 
-
-
-
 /*==================================
 
             Responsividade
@@ -320,12 +318,45 @@ footer{
 
 
 @media (max-width: 798px) { 
+
+    header{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    header h1{
+        width: 100%;
+        text-align: center;
+    }
   #quadro{
         grid-template-columns: 1fr;
     }
+    .topo{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    .switch{
+        width: 48px;
+        height: 26px;
+    }
+
+    .slider::before{
+        width: 18px;
+        height: 18px;
+        left: 4px;
+        bottom: 4px;
+    }
+
+    .switch input:checked + .slider::before{
+        transform: translateX(22px);
+    }
+
 }
-
-
 /*=================================
 
             Tema Claro
