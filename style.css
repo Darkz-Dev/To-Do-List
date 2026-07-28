@@ -336,7 +336,7 @@ footer{
     .topo{
         width: 100%;
         display: flex;
-        justify-content: center;
+        justify-content: flex-end;
         margin-bottom: 20px;
     }
 
