@@ -333,6 +333,29 @@ footer{
   #quadro{
         grid-template-columns: 1fr;
     }
+    .topo{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    .switch{
+        width: 48px;
+        height: 26px;
+    }
+
+    .slider::before{
+        width: 18px;
+        height: 18px;
+        left: 4px;
+        bottom: 4px;
+    }
+
+    .switch input:checked + .slider::before{
+        transform: translateX(22px);
+    }
+
 }
 /*=================================
 
