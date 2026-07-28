@@ -326,14 +326,20 @@ footer{
 }
 
 
+/*=================================
+
+            Tema Claro
+
+=================================*/
+
 body.light-mode{
-    background: #DCE3EA;
+    background: #D4DCE5;
     color: #1E293B;
 }
 
 body.light-mode #container{
-    background: #EEF2F6;
-    border-color: #CBD5E1;
+    background: #E6EBF1;
+    border-color: #B8C4D1;
 }
 
 body.light-mode header h1{
@@ -353,11 +359,11 @@ body.light-mode .tab{
 }
 
 body.light-mode .coluna{
-    background: #D5DEE8;
+    background: #C9D4E0;
 }
 
 body.light-mode .coluna:hover{
-    background: #C7D2DD;
+    background: #BCC9D6;
 }
 
 body.light-mode .coluna h3{
@@ -365,9 +371,9 @@ body.light-mode .coluna h3{
 }
 
 body.light-mode .novaTarefa{
-    background: #FFFFFF;
+    background: #F5F7FA;
     color: #1E293B;
-    border: 1px solid #CBD5E1;
+    border: 1px solid #B8C4D1;
 }
 
 body.light-mode .novaTarefa::placeholder{
@@ -388,12 +394,12 @@ body.light-mode .addTarefa:hover{
 }
 
 body.light-mode section ul li{
-    background: #F7F9FB;
+    background: #EDF2F7;
     box-shadow: 0 6px 15px rgba(0,0,0,.15);
 }
 
 body.light-mode .data-criacao{
-    color: #64748B;
+    color: #5F6F82;
 }
 
 body.light-mode .contador{
@@ -443,7 +449,7 @@ body.light-mode .btn-feitas{
 }
 
 body.light-mode footer{
-    background: #CBD5E1;
+    background: #BCC9D6;
     color: #1E293B;
     padding: 12px;
     border-radius: 10px;

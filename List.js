@@ -7,7 +7,8 @@ const listaFeita = document.getElementById('listaFeita')
 const contadorFalta = document.getElementById('contadorFalta')
 const contadorFazendo = document.getElementById('contadorFazendo')
 const contadorFeitas = document.getElementById('contadorFeitas')
-
+const btnTema = document.querySelector(".tema")
+const body = document.querySelector('body')
 
 let tarefas = [];
 
@@ -161,6 +162,12 @@ function atualizarContadores() {
     contadorFazendo.textContent = listaFazendo.children.length;
     contadorFeitas.textContent = listaFeita.children.length;
 }
+
+btnTema.addEventListener("click", () => {
+    body.classList.toggle("light-mode")
+    
+
+})
 
 addTarefa.addEventListener("click", () => {
     let texto = novaTarefa.value.trim();
